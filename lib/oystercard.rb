@@ -4,6 +4,7 @@ class Oystercard
   attr_reader :in_use
   MAX_BALANCE = 90
   MIN_BALANCE = 1
+  MIN_CHARGE = 10
 
   def initialize
     @balance = 0
@@ -34,10 +35,16 @@ class Oystercard
 
   def touch_out
     @in_use = false
+    deduct
   end
+  
+private
 
-  def deduct(fare)
-    @balance -= fare
+  # def deduct(fare)
+  #   @balance -= fare
+  # end
+
+  def deduct
+    @balance -= MIN_CHARGE
   end
-
 end

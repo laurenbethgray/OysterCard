@@ -12,7 +12,8 @@ describe Oystercard do
     expect(Oystercard::MAX_BALANCE).to eq(90) 
   end
   it 'deducts fare from card' do
-    expect(subject.deduct(5)). to eq subject.balance
+    # expect(subject.send(:deduct(10)) ).to eq("subject.balance")
+    expect(subject.send(:deduct ) )
   end
   it 'tracks when cards in use' do
     expect(subject).not_to be_in_journey
@@ -29,6 +30,9 @@ describe Oystercard do
   end
   it 'checks min balance on card for touch in' do
     expect { subject.touch_in }.to raise_error "Insufficient balance to touch in."
+  end
+  it 'deducts fare from balance after journey' do
+    expect{ subject.touch_out }.to change{ subject.balance }.by(subject.send(:deduct))
   end
 end
 
